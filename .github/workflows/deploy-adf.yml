@@ -18,7 +18,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Deploy Azure Data Factory
-      uses: azure/data-factory-deploy-action@v1.0.0    # ← Versión específica
+      uses: azure/data-factory-deploy-action@v1.0.0
       with:
         resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
         dataFactoryName: ${{ secrets.DATA_FACTORY_NAME }}
