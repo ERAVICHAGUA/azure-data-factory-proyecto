@@ -1,0 +1,29 @@
+name: Deploy Azure Data Factory
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy Azure Data Factory
+      uses: azure/data-factory-deploy-action@v1
+      with:
+        resourceGroupName: ${{ secrets.RESOURCE_GROUP }}
+        dataFactoryName: ${{ secrets.DATA_FACTORY_NAME }}
+        armTemplateFile: 'ARMTemplateForFactory.json'
+        armTemplateParametersFile: 'ARMTemplateParametersForFactory.json'
